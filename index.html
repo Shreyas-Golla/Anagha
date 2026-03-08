@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>For Anagha ❤️</title>
+
+<style>
+body{
+margin:0;
+font-family:Arial;
+background:black;
+color:white;
+text-align:center;
+}
+
+.slide{
+display:none;
+height:100vh;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+}
+
+.slide img{
+max-width:80%;
+border-radius:15px;
+}
+
+.active{
+display:flex;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="slide active">
+<h1>For Anagha ❤️</h1>
+<p>This little website is just for you</p>
+</div>
+
+<div class="slide">
+<img src="photo1.jpg">
+<p>The day I met you</p>
+</div>
+
+<div class="slide">
+<img src="photo2.jpg">
+<p>My favourite smile</p>
+</div>
+
+<div class="slide">
+<h1>I love you Anagha ❤️</h1>
+</div>
+
+<script>
+
+let slides = document.querySelectorAll(".slide");
+let i = 0;
+
+setInterval(()=>{
+slides[i].classList.remove("active");
+i = (i + 1) % slides.length;
+slides[i].classList.add("active");
+},3000);
+
+</script>
+
+</body>
+</html>
