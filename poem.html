@@ -11,11 +11,29 @@ font-family:Arial;
 text-align:center;
 padding:50px;
 }
+
+.buttons{
+position:fixed;
+bottom:30px;
+width:100%;
+}
+
+a{
+background:#ff4d6d;
+padding:12px 22px;
+border-radius:12px;
+color:white;
+text-decoration:none;
+margin:10px;
+font-size:16px;
+}
+
 </style>
 
 </head>
 
 <body>
+
 
 <h1>A Poem For Anagha ❤️</h1>
 
@@ -40,4 +58,61 @@ Right beside yours every day.<br><br>
 <a href="index.html">Back</a>
 
 </body>
+
+<script>
+  /* floating hearts */
+
+function createHeart(){
+
+let heart=document.createElement("div");
+heart.className="heart";
+
+let hearts=["❤️","💖","💗","💝","🩷","🤍"];
+heart.innerHTML=hearts[Math.floor(Math.random()*hearts.length)];
+
+heart.style.left=Math.random()*100+"vw";
+heart.style.fontSize=(20+Math.random()*35)+"px";
+
+document.body.appendChild(heart);
+
+setTimeout(()=>{heart.remove();},8000);
+}
+
+setInterval(createHeart,900);
+
+
+/* heart burst on tap */
+
+document.addEventListener("click",(e)=>{
+
+let hearts=["❤️","💖","💗","💝","🩷","🤍"];
+
+for(let i=0;i<8;i++){
+
+let heart=document.createElement("div");
+heart.innerHTML=hearts[Math.floor(Math.random()*hearts.length)];
+
+heart.style.position="fixed";
+heart.style.left=e.clientX+"px";
+heart.style.top=e.clientY+"px";
+heart.style.fontSize="24px";
+heart.style.pointerEvents="none";
+heart.style.transition="all 1s ease";
+
+document.body.appendChild(heart);
+
+setTimeout(()=>{
+heart.style.transform=`translate(${(Math.random()-0.5)*200}px, ${(Math.random()-0.5)*200}px)`;
+heart.style.opacity="0";
+},10);
+
+setTimeout(()=>{
+heart.remove();
+},1000);
+
+}
+
+});
+
+</script>
 </html>
