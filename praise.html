@@ -18,6 +18,31 @@ border-radius:15px;
 margin:20px;
 }
 
+  /* hearts */
+
+.heart{
+position:fixed;
+bottom:-20px;
+font-size:20px;
+animation:float 8s linear infinite;
+}
+
+@keyframes float{
+0%{
+transform:translateY(0) rotate(-25deg);
+opacity:0.25;
+}
+
+40%{
+opacity:0.45;
+}
+
+100%{
+transform:translateY(-110vh) rotate(-25deg);
+opacity:0;
+}
+}
+  
 </style>
 
 </head>
