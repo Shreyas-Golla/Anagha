@@ -156,6 +156,9 @@ Your heart is even more beautiful.
 
 <script>
 
+<script>
+
+const music = document.getElementById("bgMusic");
 
 window.addEventListener("load", () => {
 
@@ -173,10 +176,11 @@ document.addEventListener("click", () => music.play(), { once:true });
 
 /* save time continuously */
 
-setInterval(() => {
+setInterval(()=>{
 sessionStorage.setItem("musicTime", music.currentTime);
 },1000);
 
+</script>
 
 
 /* floating hearts */
