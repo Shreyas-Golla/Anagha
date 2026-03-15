@@ -182,14 +182,43 @@ I love you Anagha ❤️
 
 <script>
 
-let slides=document.querySelectorAll(".slide");
-let i=0;
+let slides = document.querySelectorAll(".slide");
+let current = 0;
+
+function showSlide(index){
+slides[current].classList.remove("active");
+current = (index + slides.length) % slides.length;
+slides[current].classList.add("active");
+}
+
+/* automatic slides */
 
 setInterval(()=>{
-slides[i].classList.remove("active");
-i=(i+1)%slides.length;
-slides[i].classList.add("active");
-},4500);
+showSlide(current + 1);
+},5000);
+
+/* keyboard navigation */
+
+document.addEventListener("keydown",(e)=>{
+if(e.key==="ArrowRight"){showSlide(current+1);}
+if(e.key==="ArrowLeft"){showSlide(current-1);}
+});
+
+
+/* swipe navigation */
+
+let startX=0;
+
+document.addEventListener("touchstart",(e)=>{
+startX=e.touches[0].clientX;
+});
+
+document.addEventListener("touchend",(e)=>{
+let endX=e.changedTouches[0].clientX;
+
+if(startX-endX>50){showSlide(current+1);}
+if(endX-startX>50){showSlide(current-1);}
+});
 
 
 /* floating hearts */
@@ -197,28 +226,55 @@ slides[i].classList.add("active");
 function createHeart(){
 
 let heart=document.createElement("div");
-
 heart.className="heart";
 
 let hearts=["❤️","💖","💗","💝","🩷","🤍"];
-
 heart.innerHTML=hearts[Math.floor(Math.random()*hearts.length)];
 
 heart.style.left=Math.random()*100+"vw";
-
 heart.style.fontSize=(20+Math.random()*35)+"px";
 
 document.body.appendChild(heart);
 
-setTimeout(()=>{
-heart.remove();
-},8000);
-
+setTimeout(()=>{heart.remove();},8000);
 }
 
 setInterval(createHeart,500);
 
-</script>
 
+/* heart burst on tap */
+
+document.addEventListener("click",(e)=>{
+
+let hearts=["❤️","💖","💗","💝","🩷","🤍"];
+
+for(let i=0;i<8;i++){
+
+let heart=document.createElement("div");
+heart.innerHTML=hearts[Math.floor(Math.random()*hearts.length)];
+
+heart.style.position="fixed";
+heart.style.left=e.clientX+"px";
+heart.style.top=e.clientY+"px";
+heart.style.fontSize="24px";
+heart.style.pointerEvents="none";
+heart.style.transition="all 1s ease";
+
+document.body.appendChild(heart);
+
+setTimeout(()=>{
+heart.style.transform=`translate(${(Math.random()-0.5)*200}px, ${(Math.random()-0.5)*200}px)`;
+heart.style.opacity="0";
+},10);
+
+setTimeout(()=>{
+heart.remove();
+},1000);
+
+}
+
+});
+
+</script>
 </body>
 </html>
