@@ -24,11 +24,19 @@ flex-direction:column;
 justify-content:center;
 align-items:center;
 opacity:0;
-transition:opacity 1.5s;
+transition:opacity 1.8s;
+padding:30px;
+box-sizing:border-box;
 }
 
 .slide.active{
 opacity:1;
+}
+
+p{
+font-size:22px;
+line-height:1.6;
+max-width:700px;
 }
 
 img{
@@ -47,26 +55,26 @@ width:100%;
 
 a{
 background:#ff4d6d;
-padding:12px 20px;
-border-radius:10px;
+padding:12px 22px;
+border-radius:12px;
 color:white;
 text-decoration:none;
 margin:10px;
+font-size:16px;
 }
 
 /* hearts */
 
 .heart{
 position:fixed;
-bottom:-10px;
-color:#ff4d6d;
+bottom:-20px;
 font-size:20px;
 animation:float 8s linear infinite;
 }
 
 @keyframes float{
 0%{transform:translateY(0) rotate(-25deg);opacity:1;}
-100%{transform:translateY(-100vh) rotate(-25deg);opacity:0;}
+100%{transform:translateY(-110vh) rotate(-25deg);opacity:0;}
 }
 
 </style>
@@ -79,28 +87,91 @@ animation:float 8s linear infinite;
 <source src="music.mp3" type="audio/mpeg">
 </audio>
 
+<!-- Slide 1 -->
+
 <div class="slide active">
-<h1>For Anagha ❤️</h1>
-<p>This little website is just for you</p>
+<p>
+Crazy how it all started<br>
+with a DT project.<br><br>
+
+Just another college group…<br><br>
+
+or at least<br>
+that's what I thought.
+</p>
 </div>
+
+<!-- Slide 2 -->
 
 <div class="slide">
-<img src="photo1.jpg">
-<p>Crazy how it all started
-with a DT project.
+<p>
+That day everyone<br>
+had already said good night.<br><br>
 
-Just another college group…
-or at least that's what I thought.</p>
+But somehow…<br><br>
+
+our conversation<br>
+had just begun.
+</p>
 </div>
+
+<!-- Slide 3 -->
 
 <div class="slide">
-<img src="photo2.jpg">
-<p>Your smile is my favorite view</p>
+<p>
+And somehow<br><br>
+
+one conversation<br>
+turned into hours.
+</p>
 </div>
 
+<!-- Slide 4 -->
+
 <div class="slide">
-<h1>I love you Anagha ❤️</h1>
+<p>
+I still don't know<br>
+how you managed to do that to me 😁<br><br>
+
+But suddenly,<br>
+sleep felt less important<br>
+than talking to you.<br><br>
+
+And somehow,<br>
+you casually became<br>
+the best part of my day.
+</p>
 </div>
+
+<!-- Slide 5 -->
+
+<div class="slide">
+<p>
+And the more we talked,<br><br>
+
+the more I realized<br>
+how special you are.
+</p>
+</div>
+
+<!-- Slide 6 -->
+
+<div class="slide">
+<p>
+Some stories start loudly.<br><br>
+
+Ours started quietly<br>
+with one late-night conversation.<br><br>
+
+And somehow,<br>
+it became<br>
+my favorite story.<br><br>
+
+I love you Anagha ❤️
+</p>
+</div>
+
+<!-- buttons -->
 
 <div class="buttons">
 
@@ -118,7 +189,7 @@ setInterval(()=>{
 slides[i].classList.remove("active");
 i=(i+1)%slides.length;
 slides[i].classList.add("active");
-},4000);
+},4500);
 
 
 /* floating hearts */
@@ -128,11 +199,14 @@ function createHeart(){
 let heart=document.createElement("div");
 
 heart.className="heart";
+
 let hearts=["❤️","💖","💗","💝","🩷","🤍"];
+
 heart.innerHTML=hearts[Math.floor(Math.random()*hearts.length)];
 
 heart.style.left=Math.random()*100+"vw";
-heart.style.fontSize=(20+Math.random()*30)+"px";
+
+heart.style.fontSize=(20+Math.random()*35)+"px";
 
 document.body.appendChild(heart);
 
