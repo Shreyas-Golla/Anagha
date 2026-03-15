@@ -157,6 +157,32 @@ Your heart is even more beautiful.
 
 <script>
 
+  <script>
+
+const music = document.getElementById("bgMusic");
+
+/* restore time */
+
+window.addEventListener("load", () => {
+
+let time = sessionStorage.getItem("musicTime");
+
+if(time){
+music.currentTime = time;
+}
+
+music.play();
+
+});
+
+/* save time continuously */
+
+setInterval(() => {
+sessionStorage.setItem("musicTime", music.currentTime);
+},1000);
+
+</script>
+
 /* floating hearts */
 
 function createHeart(){
