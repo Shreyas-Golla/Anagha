@@ -73,8 +73,19 @@ animation:float 8s linear infinite;
 }
 
 @keyframes float{
-0%{transform:translateY(0) rotate(-25deg);opacity:1;}
-100%{transform:translateY(-110vh) rotate(-25deg);opacity:0;}
+0%{
+transform:translateY(0) rotate(-25deg);
+opacity:0.25;
+}
+
+40%{
+opacity:0.45;
+}
+
+100%{
+transform:translateY(-110vh) rotate(-25deg);
+opacity:0;
+}
 }
 
 </style>
@@ -93,7 +104,13 @@ animation:float 8s linear infinite;
 <p>
 Crazy how it all started<br>
 with a DT project.<br><br>
+</p>
+</div>
 
+  <!-- Slide 2 -->
+  
+<div class="slide">
+<p>
 Just another college group…<br><br>
 
 or at least<br>
@@ -101,13 +118,19 @@ that's what I thought.
 </p>
 </div>
 
-<!-- Slide 2 -->
+<!-- Slide 3 -->
 
 <div class="slide">
 <p>
 That day everyone<br>
 had already said good night.<br><br>
+</p>
+</div>
 
+<!-- Slide 4 -->
+  
+<div class="slide">
+<p>  
 But somehow…<br><br>
 
 our conversation<br>
@@ -115,28 +138,38 @@ had just begun.
 </p>
 </div>
 
-<!-- Slide 3 -->
+
 
 <div class="slide">
 <p>
-And somehow<br><br>
+And somehow…<br><br>
 
 one conversation<br>
 turned into hours.
 </p>
 </div>
 
-<!-- Slide 4 -->
+
 
 <div class="slide">
 <p>
 I still don't know<br>
 how you managed to do that to me 😁<br><br>
+</p>
+</div>
 
+
+<div class="slide">
+<p>
 But suddenly,<br>
-sleep felt less important<br>
+everything & everyone felt less important<br>
 than talking to you.<br><br>
+</p>
+</div>
 
+
+<div class="slide">
+<p> 
 And somehow,<br>
 you casually became<br>
 the best part of my day.
@@ -166,7 +199,11 @@ with one late-night conversation.<br><br>
 And somehow,<br>
 it became<br>
 my favorite story.<br><br>
+</p>
+</div>
 
+<div class="slide">
+<p>
 I love you Anagha ❤️
 </p>
 </div>
@@ -239,7 +276,7 @@ document.body.appendChild(heart);
 setTimeout(()=>{heart.remove();},8000);
 }
 
-setInterval(createHeart,500);
+setInterval(createHeart,900);
 
 
 /* heart burst on tap */
