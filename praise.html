@@ -9,22 +9,64 @@ body{
 background:black;
 color:white;
 font-family:Arial;
-text-align:center;
-padding:50px;
 margin:0;
 overflow:hidden;
 }
 
+/* horizontal container */
+
+.container{
+display:flex;
+height:100vh;
+width:100vw;
+overflow-x:auto;
+scroll-snap-type:x mandatory;
+scroll-behavior:smooth;
+}
+
+/* slides */
+
+.slide{
+flex:0 0 100vw;
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:40px;
+scroll-snap-align:center;
+}
+
 img{
-width:80%;
+width:60%;
+max-width:500px;
 border-radius:15px;
 margin:20px;
 }
 
-  .buttons{
+p{
+font-size:28px;
+line-height:1.7;
+max-width:800px;
+}
+
+h1{
+position:fixed;
+top:20px;
+width:100%;
+text-align:center;
+z-index:5;
+}
+
+/* back button */
+
+.buttons{
 position:fixed;
 bottom:30px;
 width:100%;
+text-align:center;
+z-index:10;
 }
 
 a{
@@ -37,16 +79,18 @@ margin:10px;
 font-size:16px;
 }
 
-  /* hearts */
+/* floating hearts */
 
 .heart{
 position:fixed;
 bottom:-20px;
 font-size:20px;
 animation:float 8s linear infinite;
+pointer-events:none;
 }
 
 @keyframes float{
+
 0%{
 transform:translateY(0) rotate(-25deg);
 opacity:0.25;
@@ -60,56 +104,56 @@ opacity:0.45;
 transform:translateY(-110vh) rotate(-25deg);
 opacity:0;
 }
+
 }
 
-    p{
-font-size:28px;
-line-height:1.7;
-max-width:800px;
-margin:auto;
-}
-  
 </style>
-
 </head>
 
 <body>
 
 <h1>Why Anagha is Amazing ✨</h1>
 
-<h2>Her Beauty</h2>
+<div class="container">
 
+<div class="slide">
+<h2>Her Beauty</h2>
 <img src="photo1.jpg">
 <p>Your smile is my favorite view in the world.</p>
+</div>
 
+<div class="slide">
 <img src="photo2.jpg">
 <p>Your eyes hold more warmth than the sun.</p>
+</div>
 
+<div class="slide">
 <h2>Her Heart</h2>
-
 <p>
 You are kind.<br>
 You are strong.<br>
 You care deeply about people.<br>
-You make life feel lighter and happier.<br>
+You make life feel lighter and happier.
 </p>
+</div>
 
+<div class="slide">
 <h2>The Best Part</h2>
-
 <p>
-You are not just beautiful outside…  
+You are not just beautiful outside…<br>
 Your heart is even more beautiful.
 </p>
+</div>
 
-<br><br>
+</div>
 
 <div class="buttons">
 <a href="index.html">Back</a>
 </div>
-  
 
-  <script>
-    /* floating hearts */
+<script>
+
+/* floating hearts */
 
 function createHeart(){
 
@@ -130,7 +174,7 @@ setTimeout(()=>{heart.remove();},8000);
 setInterval(createHeart,900);
 
 
-/* heart burst on tap */
+/* heart burst */
 
 document.addEventListener("click",(e)=>{
 
@@ -163,6 +207,7 @@ heart.remove();
 
 });
 
-  </script>
+</script>
+
 </body>
 </html>
