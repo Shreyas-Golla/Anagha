@@ -1,38 +1,83 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <title>For Anagha ❤️</title>
 
 <style>
+
 body{
 margin:0;
-font-family:Arial;
 background:black;
 color:white;
+font-family:Arial;
+overflow:hidden;
 text-align:center;
 }
 
 .slide{
-display:none;
+position:absolute;
+width:100%;
 height:100vh;
+display:flex;
+flex-direction:column;
 justify-content:center;
 align-items:center;
-flex-direction:column;
+opacity:0;
+transition:opacity 1.5s;
 }
 
-.slide img{
-max-width:80%;
-border-radius:15px;
+.slide.active{
+opacity:1;
 }
 
-.active{
-display:flex;
+img{
+max-width:85%;
+border-radius:20px;
+box-shadow:0 0 40px rgba(255,0,100,0.5);
 }
+
+/* buttons */
+
+.buttons{
+position:fixed;
+bottom:30px;
+width:100%;
+}
+
+a{
+background:#ff4d6d;
+padding:12px 20px;
+border-radius:10px;
+color:white;
+text-decoration:none;
+margin:10px;
+}
+
+/* hearts */
+
+.heart{
+position:fixed;
+bottom:-10px;
+color:#ff4d6d;
+font-size:20px;
+animation:float 8s linear infinite;
+}
+
+@keyframes float{
+0%{transform:translateY(0);opacity:1;}
+100%{transform:translateY(-100vh);opacity:0;}
+}
+
 </style>
 
 </head>
 
 <body>
+
+<audio autoplay loop>
+<source src="music.mp3" type="audio/mpeg">
+</audio>
 
 <div class="slide active">
 <h1>For Anagha ❤️</h1>
@@ -41,34 +86,58 @@ display:flex;
 
 <div class="slide">
 <img src="photo1.jpg">
-<p>The day I met you</p>
+<p>The day I realized you are special</p>
 </div>
 
 <div class="slide">
 <img src="photo2.jpg">
-<p>My favourite smile</p>
+<p>Your smile is my favorite view</p>
 </div>
 
 <div class="slide">
 <h1>I love you Anagha ❤️</h1>
 </div>
 
-<div style="position:fixed; bottom:40px; width:100%;">
-<a href="poem.html" style="padding:12px 20px; background:#ff4d6d; color:white; text-decoration:none; border-radius:10px; margin:10px;">A Poem For You ❤️</a>
+<div class="buttons">
 
-<a href="praise.html" style="padding:12px 20px; background:#ff4d6d; color:white; text-decoration:none; border-radius:10px; margin:10px;">Why You Are Amazing ✨</a>
+<a href="poem.html">Poem For You ❤️</a>
+<a href="praise.html">Why You Are Amazing ✨</a>
+
 </div>
-  
+
 <script>
 
-let slides = document.querySelectorAll(".slide");
-let i = 0;
+let slides=document.querySelectorAll(".slide");
+let i=0;
 
 setInterval(()=>{
 slides[i].classList.remove("active");
-i = (i + 1) % slides.length;
+i=(i+1)%slides.length;
 slides[i].classList.add("active");
-},3000);
+},4000);
+
+
+/* floating hearts */
+
+function createHeart(){
+
+let heart=document.createElement("div");
+
+heart.className="heart";
+heart.innerHTML="❤️";
+
+heart.style.left=Math.random()*100+"vw";
+heart.style.fontSize=(20+Math.random()*30)+"px";
+
+document.body.appendChild(heart);
+
+setTimeout(()=>{
+heart.remove();
+},8000);
+
+}
+
+setInterval(createHeart,500);
 
 </script>
 
