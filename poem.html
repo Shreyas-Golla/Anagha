@@ -99,6 +99,9 @@ Right beside yours every day.<br><br>
 
 <script>
 
+<script>
+
+const music = document.getElementById("bgMusic");
 
 window.addEventListener("load", () => {
 
@@ -112,13 +115,15 @@ music.play().catch(()=>{
 document.addEventListener("click", () => music.play(), { once:true });
 });
 
-});;
+});
 
 /* save time continuously */
 
-setInterval(() => {
+setInterval(()=>{
 sessionStorage.setItem("musicTime", music.currentTime);
 },1000);
+
+</script>
 
 
   /* floating hearts */
