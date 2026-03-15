@@ -158,10 +158,6 @@ Your heart is even more beautiful.
 <script>
 
 
-const music = document.getElementById("bgMusic");
-
-/* restore time */
-
 window.addEventListener("load", () => {
 
 let time = sessionStorage.getItem("musicTime");
@@ -170,7 +166,9 @@ if(time){
 music.currentTime = time;
 }
 
-music.play();
+music.play().catch(()=>{
+document.addEventListener("click", () => music.play(), { once:true });
+});
 
 });
 
