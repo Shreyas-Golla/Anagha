@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,7 +48,9 @@ border-radius:20px;
 box-shadow:0 0 40px rgba(255,0,100,0.5);
 }
 
-    #loader{
+/* loader */
+
+#loader{
 position:fixed;
 top:0;
 left:0;
@@ -87,7 +90,7 @@ color:white;
 font-size:16px;
 cursor:pointer;
 }
-    
+
 /* buttons */
 
 .buttons{
@@ -139,7 +142,7 @@ opacity:0;
 
 <div id="loader">
 
-<h1 id="title">For Anagha ❤️</h1>
+<h1>For Anagha ❤️</h1>
 
 <p id="message">Tap 4 times to start the story</p>
 
@@ -151,113 +154,36 @@ opacity:0;
 
 </div>
 
-<button id="tapBtn">Tap ❤️</button>
-
-</div>
-
 <audio id="bgMusic" loop>
 <source src="music1.mpeg" type="audio/mpeg">
 </audio>
 
-<!-- Slide 1 -->
-<div class="slide active">
-<p>
-Crazy how it all started<br>
-with a DT project.<br><br>
-</p>
-</div>
+<!-- Slides -->
 
-<!-- Slide 2 -->
-<div class="slide">
-<p>
-Just another college group…<br><br>
-or at least<br>
-that's what I thought.
-</p>
-</div>
+<div class="slide active"><p>Crazy how it all started<br>with a DT project.</p></div>
 
-<!-- Slide 3 -->
-<div class="slide">
-<p>
-That day everyone<br>
-had already said good night.<br><br>
-</p>
-</div>
+<div class="slide"><p>Just another college group…<br><br>or at least that's what I thought.</p></div>
 
-<!-- Slide 4 -->
-<div class="slide">
-<p>
-But somehow…<br><br>
-our conversation<br>
-had just begun.
-</p>
-</div>
+<div class="slide"><p>That day everyone<br>had already said good night.</p></div>
 
-<!-- Slide 5 -->
-<div class="slide">
-<p>
-And somehow…<br><br>
-one conversation<br>
-turned into hours.
-</p>
-</div>
+<div class="slide"><p>But somehow…<br><br>our conversation had just begun.</p></div>
 
-<!-- Slide 6 -->
-<div class="slide">
-<p>
-I still don't know<br>
-how you managed to do that to me 😁<br><br>
-</p>
-</div>
+<div class="slide"><p>And somehow…<br><br>one conversation turned into hours.</p></div>
 
-<!-- Slide 7 -->
-<div class="slide">
-<p>
-But suddenly,<br>
-everything & everyone felt less important<br>
-than talking to you.<br><br>
-</p>
-</div>
+<div class="slide"><p>I still don't know<br>how you managed to do that to me 😁</p></div>
 
-<!-- Slide 8 -->
-<div class="slide">
-<p>
-And somehow,<br>
-you casually became<br>
-the best part of my day.
-</p>
-</div>
+<div class="slide"><p>But suddenly,<br>everything & everyone felt less important than talking to you.</p></div>
 
-<!-- Slide 9 -->
-<div class="slide">
-<p>
-And the more we talked,<br><br>
-the more I realized<br>
-how special you are.
-</p>
-</div>
+<div class="slide"><p>And somehow,<br>you casually became the best part of my day.</p></div>
 
-<!-- Slide 10 -->
-<div class="slide">
-<p>
-Some stories start loudly.<br><br>
-Ours started quietly<br>
-with one late-night conversation.<br><br>
+<div class="slide"><p>And the more we talked,<br><br>the more I realized how special you are.</p></div>
 
-And somehow,<br>
-it became<br>
-my favorite story.<br><br>
-</p>
-</div>
+<div class="slide"><p>Some stories start loudly.<br><br>Ours started quietly with one late-night conversation.<br><br>And somehow, it became my favorite story.</p></div>
 
-<!-- Final Slide -->
-<div class="slide">
-<p>
-I love you Anagha ❤️
-</p>
-</div>
+<div class="slide"><p>I love you Anagha ❤️</p></div>
 
 <!-- buttons -->
+
 <div class="buttons">
 <a href="poem.html">Poem For You ❤️</a>
 <a href="praise.html">Why You Are Amazing ✨</a>
@@ -267,7 +193,7 @@ I love you Anagha ❤️
 
 const music = document.getElementById("bgMusic");
 
- let taps = 0;
+let taps = 0;
 
 const btn = document.getElementById("tapBtn");
 const progress = document.getElementById("progress");
@@ -277,22 +203,11 @@ const message = document.getElementById("message");
 btn.addEventListener("click", () => {
 
 taps++;
-
 progress.style.width = (taps * 25) + "%";
 
-/* changing messages */
-
-if(taps === 1){
-message.innerText = "Almost there… ❤️";
-}
-
-if(taps === 2){
-message.innerText = "Just a little more… 💫";
-}
-
-if(taps === 3){
-message.innerText = "Ready? 😌";
-}
+if(taps === 1) message.innerText = "Almost there… ❤️";
+if(taps === 2) message.innerText = "Just a little more… 💫";
+if(taps === 3) message.innerText = "Ready? 😌";
 
 if(taps >= 4){
 
@@ -308,26 +223,15 @@ loader.style.display = "none";
 
 }
 
-});window.addEventListener("load", () => {
-
-let time = sessionStorage.getItem("musicTime");
-
-if(time){
-music.currentTime = time;
-}
-
-music.play().catch(()=>{
-document.addEventListener("click", () => music.play(), { once:true });
 });
 
-});
-
-/* save time continuously */
+/* save music time */
 
 setInterval(()=>{
 sessionStorage.setItem("musicTime", music.currentTime);
 },1000);
 
+/* slides */
 
 let slides = document.querySelectorAll(".slide");
 let current = 0;
@@ -338,20 +242,14 @@ current = (index + slides.length) % slides.length;
 slides[current].classList.add("active");
 }
 
-/* automatic slides */
-
-setInterval(()=>{
-showSlide(current + 1);
-},5000);
-
-/* keyboard navigation */
+/* keyboard */
 
 document.addEventListener("keydown",(e)=>{
-if(e.key==="ArrowRight"){showSlide(current+1);}
-if(e.key==="ArrowLeft"){showSlide(current-1);}
+if(e.key==="ArrowRight") showSlide(current+1);
+if(e.key==="ArrowLeft") showSlide(current-1);
 });
 
-/* swipe navigation */
+/* swipe */
 
 let startX=0;
 
@@ -362,8 +260,8 @@ startX=e.touches[0].clientX;
 document.addEventListener("touchend",(e)=>{
 let endX=e.changedTouches[0].clientX;
 
-if(startX-endX>50){showSlide(current+1);}
-if(endX-startX>50){showSlide(current-1);}
+if(startX-endX>50) showSlide(current+1);
+if(endX-startX>50) showSlide(current-1);
 });
 
 /* floating hearts */
@@ -386,9 +284,11 @@ setTimeout(()=>{heart.remove();},8000);
 
 setInterval(createHeart,900);
 
-/* heart burst on tap */
+/* heart burst */
 
 document.addEventListener("click",(e)=>{
+
+if(e.target.id === "tapBtn") return;
 
 let hearts=["❤️","💖","💗","💝","🩷","🤍"];
 
@@ -423,3 +323,4 @@ heart.remove();
 
 </body>
 </html>
+```
