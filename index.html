@@ -1,1 +1,239 @@
-🧡 1. index.html (MAIN PAGE) <!DOCTYPE html> <html> <head> <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet"> <title>For Anagha ❤️</title> <style> body{ margin:0; background:black; color:white; font-family:'Playfair Display', serif; overflow:hidden; text-align:center; } .slide{ position:absolute; width:100%; height:100vh; display:flex; justify-content:center; align-items:center; opacity:0; transition:opacity 1.8s; padding:30px; } .slide.active{opacity:1;} p{font-size:30px;max-width:800px;} .buttons{ position:fixed; bottom:30px; width:100%; } a{ background:#ff4d6d; padding:12px 22px; border-radius:12px; color:white; text-decoration:none; margin:10px; } /* hearts */ .heart{ position:fixed; bottom:-20px; animation:float 8s linear infinite; } @keyframes float{ 0%{transform:translateY(0) rotate(-25deg);opacity:0.25;} 40%{opacity:0.45;} 100%{transform:translateY(-110vh) rotate(-25deg);opacity:0;} } /* scroll hint */ #scrollHint{ position:fixed; bottom:80px; width:100%; opacity:0.7; animation:blink 1.5s infinite; } @keyframes blink{ 0%{opacity:0.2;} 50%{opacity:0.8;} 100%{opacity:0.2;} } </style> </head> <body> <audio id="bgMusic" autoplay loop> <source src="music.mp3" type="audio/mpeg"> </audio> <div class="slide active"><p>Crazy how it all started<br>with a DT project.</p></div> <div class="slide"><p>Just another college group…<br>or so I thought.</p></div> <div class="slide"><p>That day everyone had already said good night.</p></div> <div class="slide"><p>But somehow…<br>our conversation had just begun.</p></div> <div class="slide"><p>One conversation turned into hours.</p></div> <div class="slide"><p>You became the best part of my day.</p></div> <div class="slide"><p>I love you Anagha ❤️</p></div> <div id="scrollHint">Swipe to continue ❤️</div> <div class="buttons"> <a href="poem.html">Poem ❤️</a> <a href="praise.html">Praise ✨</a> </div> <script> const music = document.getElementById("bgMusic"); /* music sync */ window.addEventListener("load",()=>{ let time=sessionStorage.getItem("musicTime"); if(time) music.currentTime=time; music.play().catch(()=>{ document.addEventListener("click",()=>music.play(),{once:true}); }); }); setInterval(()=>{ sessionStorage.setItem("musicTime",music.currentTime); },500); /* slides */ let slides=document.querySelectorAll(".slide"); let i=0; function showSlide(n){ slides[i].classList.remove("active"); i=(n+slides.length)%slides.length; slides[i].classList.add("active"); } /* swipe */ let startX=0; document.addEventListener("touchstart",e=>startX=e.touches[0].clientX); document.addEventListener("touchend",e=>{ let endX=e.changedTouches[0].clientX; if(startX-endX>50) showSlide(i+1); if(endX-startX>50) showSlide(i-1); }); /* hide hint */ let hint=document.getElementById("scrollHint"); document.addEventListener("touchstart",()=>hint.style.display="none",{once:true}); /* hearts */ setInterval(()=>{ let h=document.createElement("div"); h.className="heart"; h.innerHTML=["❤️","💖","💗","💝"][Math.floor(Math.random()*4)]; h.style.left=Math.random()*100+"vw"; document.body.appendChild(h); setTimeout(()=>h.remove(),8000); },900); </script> </body> </html>
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+<title>For Anagha ❤️</title>
+
+<style>
+body{
+margin:0;
+background:black;
+color:white;
+font-family:'Playfair Display', serif;
+overflow:hidden;
+text-align:center;
+}
+
+/* slides */
+.slide{
+position:absolute;
+width:100%;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+opacity:0;
+transition:opacity 1.8s;
+padding:30px;
+}
+
+.slide.active{opacity:1;}
+
+p{font-size:30px;max-width:800px;}
+
+/* buttons */
+.buttons{
+position:fixed;
+bottom:30px;
+width:100%;
+}
+
+a{
+background:#ff4d6d;
+padding:12px 22px;
+border-radius:12px;
+color:white;
+text-decoration:none;
+margin:10px;
+}
+
+/* hearts */
+.heart{
+position:fixed;
+bottom:-20px;
+animation:float 8s linear infinite;
+font-size:20px;
+}
+
+@keyframes float{
+0%{transform:translateY(0) rotate(-25deg);opacity:0.25;}
+40%{opacity:0.45;}
+100%{transform:translateY(-110vh) rotate(-25deg);opacity:0;}
+}
+
+/* scroll hint */
+#scrollHint{
+position:fixed;
+bottom:80px;
+width:100%;
+opacity:0.7;
+animation:blink 1.5s infinite;
+}
+
+@keyframes blink{
+0%{opacity:0.2;}
+50%{opacity:0.8;}
+100%{opacity:0.2;}
+}
+
+/* ending screen */
+#ending{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100vh;
+background:black;
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+opacity:0;
+pointer-events:none;
+transition:opacity 2s;
+z-index:10;
+}
+
+#ending p{
+font-size:32px;
+animation:glow 2s infinite alternate;
+}
+
+@keyframes glow{
+from{opacity:0.6;}
+to{opacity:1;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- music -->
+<audio id="bgMusic" autoplay loop>
+<source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<!-- slides -->
+<div class="slide active"><p>Crazy how it all started<br>with a DT project.</p></div>
+<div class="slide"><p>Just another college group…<br>or so I thought.</p></div>
+<div class="slide"><p>That day everyone had already said good night.</p></div>
+<div class="slide"><p>But somehow…<br>our conversation had just begun.</p></div>
+<div class="slide"><p>One conversation turned into hours.</p></div>
+<div class="slide"><p>You became the best part of my day.</p></div>
+<div class="slide"><p>I love you Anagha ❤️</p></div>
+
+<!-- scroll hint -->
+<div id="scrollHint">Swipe to continue ❤️</div>
+
+<!-- buttons -->
+<div class="buttons">
+<a href="poem.html">Poem ❤️</a>
+<a href="praise.html">Praise ✨</a>
+</div>
+
+<!-- ending -->
+<div id="ending">
+  <p>
+    And if I had to choose again…<br><br>
+    I’d still choose you.<br>
+    Every single time. ❤️
+  </p>
+</div>
+
+<script>
+const music = document.getElementById("bgMusic");
+
+/* music sync */
+window.addEventListener("load",()=>{
+let time=sessionStorage.getItem("musicTime");
+if(time) music.currentTime=time;
+
+music.play().catch(()=>{
+document.addEventListener("click",()=>music.play(),{once:true});
+});
+});
+
+setInterval(()=>{
+sessionStorage.setItem("musicTime",music.currentTime);
+},500);
+
+/* slides */
+let slides=document.querySelectorAll(".slide");
+let i=0;
+let ended=false;
+
+function showSlide(n){
+if(ended) return;
+
+slides[i].classList.remove("active");
+i=(n+slides.length)%slides.length;
+slides[i].classList.add("active");
+
+/* trigger ending on last slide */
+if(i === slides.length - 1){
+setTimeout(()=>{
+triggerEnding();
+},2500);
+}
+}
+
+/* arrow keys (laptop) */
+document.addEventListener("keydown",(e)=>{
+if(e.key === "ArrowRight") showSlide(i+1);
+if(e.key === "ArrowLeft") showSlide(i-1);
+});
+
+/* swipe (phone) */
+let startX=0;
+
+document.addEventListener("touchstart",e=>{
+startX=e.touches[0].clientX;
+});
+
+document.addEventListener("touchend",e=>{
+let endX=e.changedTouches[0].clientX;
+
+if(startX-endX>50) showSlide(i+1);
+if(endX-startX>50) showSlide(i-1);
+});
+
+/* hide hint after interaction */
+let hint=document.getElementById("scrollHint");
+
+document.addEventListener("touchstart",()=>hint.style.display="none",{once:true});
+document.addEventListener("keydown",()=>hint.style.display="none",{once:true});
+
+/* floating hearts */
+setInterval(()=>{
+let h=document.createElement("div");
+h.className="heart";
+h.innerHTML=["❤️","💖","💗","💝"][Math.floor(Math.random()*4)];
+h.style.left=Math.random()*100+"vw";
+document.body.appendChild(h);
+
+setTimeout(()=>h.remove(),8000);
+},900);
+
+/* ending animation */
+function triggerEnding(){
+ended = true;
+
+/* fade music */
+let fade = setInterval(()=>{
+if(music.volume > 0.05){
+music.volume -= 0.05;
+}else{
+music.volume = 0;
+clearInterval(fade);
+}
+},200);
+
+/* show ending */
+document.getElementById("ending").style.opacity = "1";
+}
+</script>
+
+</body>
+</html>
+```
