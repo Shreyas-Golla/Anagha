@@ -262,11 +262,12 @@ I love you Anagha ❤️
 
 const music = document.getElementById("bgMusic");
 
-  let taps = 0;
+ let taps = 0;
 
 const btn = document.getElementById("tapBtn");
 const progress = document.getElementById("progress");
 const loader = document.getElementById("loader");
+const message = document.getElementById("message");
 
 btn.addEventListener("click", () => {
 
@@ -274,7 +275,23 @@ taps++;
 
 progress.style.width = (taps * 25) + "%";
 
+/* changing messages */
+
+if(taps === 1){
+message.innerText = "Almost there… ❤️";
+}
+
+if(taps === 2){
+message.innerText = "Just a little more… 💫";
+}
+
+if(taps === 3){
+message.innerText = "Ready? 😌";
+}
+
 if(taps >= 4){
+
+message.innerText = "Welcome to our story ❤️";
 
 music.play();
 
@@ -286,9 +303,7 @@ loader.style.display = "none";
 
 }
 
-});
-
-window.addEventListener("load", () => {
+});window.addEventListener("load", () => {
 
 let time = sessionStorage.getItem("musicTime");
 
