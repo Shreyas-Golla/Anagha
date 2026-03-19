@@ -18,6 +18,23 @@ overflow:hidden;
 text-align:center;
 }
 
+  #scrollHint{
+position:fixed;
+bottom:60px;
+left:50%;
+transform:translateX(-50%);
+font-size:18px;
+opacity:0.7;
+animation:hintMove 1.5s infinite;
+pointer-events:none;
+}
+
+@keyframes hintMove{
+0%{ transform:translate(-50%, 0); }
+50%{ transform:translate(-50%, 10px); }
+100%{ transform:translate(-50%, 0); }
+}
+
 .slide{
 position:absolute;
 width:100%;
@@ -158,6 +175,8 @@ opacity:0;
 <source src="music1.mpeg" type="audio/mpeg">
 </audio>
 
+  <div id="scrollHint">Swipe →</div>
+
 <!-- Slides -->
 
 <div class="slide active"><p>Crazy how it all started<br>with a DT project.</p></div>
@@ -232,6 +251,53 @@ loader.style.display = "none";
 }
 
 });
+
+  let startX = 0;
+let current = 0; // assuming you already use this
+let hint = document.getElementById("scrollHint");
+let hintHidden = false;
+
+// 👉 swipe start
+document.addEventListener("touchstart",(e)=>{
+  startX = e.touches[0].clientX;
+});
+
+// 👉 swipe end
+document.addEventListener("touchend",(e)=>{
+  let endX = e.changedTouches[0].clientX;
+
+  if(startX - endX > 50){
+    showSlide(current + 1);
+    hideHint();
+  }
+
+  if(endX - startX > 50){
+    showSlide(current - 1);
+    hideHint();
+  }
+});
+
+// 👉 keyboard controls
+document.addEventListener("keydown",(e)=>{
+  if(e.key === "ArrowRight"){
+    showSlide(current + 1);
+    hideHint();
+  }
+
+  if(e.key === "ArrowLeft"){
+    showSlide(current - 1);
+    hideHint();
+  }
+});
+
+// 👉 hide hint function
+function hideHint(){
+  if(!hintHidden){
+    hint.style.opacity = "0";
+    setTimeout(()=> hint.style.display = "none", 500);
+    hintHidden = true;
+  }
+}
 
 /* slides */
 
