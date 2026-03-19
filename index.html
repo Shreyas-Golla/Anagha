@@ -210,26 +210,21 @@ opacity:0;
 
 <script>
 const music = document.getElementById("bgMusic");
-
 let taps = 0;
 
 const btn = document.getElementById("tapBtn");
 const progress = document.getElementById("progress");
 const loader = document.getElementById("loader");
 const message = document.getElementById("message");
-
 const hint = document.getElementById("scrollHint");
 
+let hintHidden = false;
+let slides = document.querySelectorAll(".slide");
 let current = 0;
 let startX = 0;
-let hintHidden = false;
-
-let slides = document.querySelectorAll(".slide");
 
 /* TAP BUTTON */
-
 btn.addEventListener("click", (e) => {
-
   e.stopPropagation();
 
   taps++;
@@ -240,26 +235,18 @@ btn.addEventListener("click", (e) => {
   if(taps === 3) message.innerText = "Ready? 😌";
 
   if(taps >= 4){
-
     message.innerText = "Welcome to our story ❤️";
 
     music.play().catch(() => {});
 
     loader.style.opacity = "0";
-
     setTimeout(()=>{
       loader.style.display = "none";
-
-      // ✅ show hint AFTER loader
-      hint.style.opacity = "0.7";
-
     },600);
   }
-
 });
 
-/* SHOW SLIDE */
-
+/* SLIDES */
 function showSlide(index){
   slides[current].classList.remove("active");
   current = (index + slides.length) % slides.length;
@@ -267,7 +254,6 @@ function showSlide(index){
 }
 
 /* HIDE HINT */
-
 function hideHint(){
   if(!hintHidden){
     hint.style.opacity = "0";
@@ -277,13 +263,11 @@ function hideHint(){
 }
 
 /* KEYBOARD */
-
 document.addEventListener("keydown",(e)=>{
   if(e.key === "ArrowRight"){
     showSlide(current + 1);
     hideHint();
   }
-
   if(e.key === "ArrowLeft"){
     showSlide(current - 1);
     hideHint();
@@ -291,7 +275,6 @@ document.addEventListener("keydown",(e)=>{
 });
 
 /* SWIPE */
-
 document.addEventListener("touchstart",(e)=>{
   startX = e.touches[0].clientX;
 });
@@ -311,56 +294,49 @@ document.addEventListener("touchend",(e)=>{
 });
 
 /* FLOATING HEARTS */
-
 function createHeart(){
+  let heart = document.createElement("div");
+  heart.className = "heart";
 
-  let heart=document.createElement("div");
-  heart.className="heart";
+  let hearts = ["❤️","💖","💗","💝","🩷","🤍"];
+  heart.innerHTML = hearts[Math.floor(Math.random()*hearts.length)];
 
-  let hearts=["❤️","💖","💗","💝","🩷","🤍"];
-  heart.innerHTML=hearts[Math.floor(Math.random()*hearts.length)];
-
-  heart.style.left=Math.random()*100+"vw";
-  heart.style.fontSize=(20+Math.random()*35)+"px";
+  heart.style.left = Math.random()*100 + "vw";
+  heart.style.fontSize = (20+Math.random()*35)+"px";
 
   document.body.appendChild(heart);
 
-  setTimeout(()=>{heart.remove();},8000);
+  setTimeout(()=> heart.remove(), 8000);
 }
 
-setInterval(createHeart,900);
+setInterval(createHeart, 900);
 
 /* HEART BURST */
-
 document.addEventListener("click",(e)=>{
-
   if(e.target.id === "tapBtn") return;
 
-  let hearts=["❤️","💖","💗","💝","🩷","🤍"];
+  let hearts = ["❤️","💖","💗","💝","🩷","🤍"];
 
   for(let i=0;i<8;i++){
+    let heart = document.createElement("div");
 
-    let heart=document.createElement("div");
-    heart.innerHTML=hearts[Math.floor(Math.random()*hearts.length)];
-
-    heart.style.position="fixed";
-    heart.style.left=e.clientX+"px";
-    heart.style.top=e.clientY+"px";
-    heart.style.fontSize="24px";
-    heart.style.pointerEvents="none";
-    heart.style.transition="all 1s ease";
+    heart.innerHTML = hearts[Math.floor(Math.random()*hearts.length)];
+    heart.style.position = "fixed";
+    heart.style.left = e.clientX + "px";
+    heart.style.top = e.clientY + "px";
+    heart.style.fontSize = "24px";
+    heart.style.pointerEvents = "none";
+    heart.style.transition = "all 1s ease";
 
     document.body.appendChild(heart);
 
     setTimeout(()=>{
-      heart.style.transform=`translate(${(Math.random()-0.5)*200}px, ${(Math.random()-0.5)*200}px)`;
-      heart.style.opacity="0";
+      heart.style.transform = `translate(${(Math.random()-0.5)*200}px, ${(Math.random()-0.5)*200}px)`;
+      heart.style.opacity = "0";
     },10);
 
-    setTimeout(()=> heart.remove(),1000);
-
+    setTimeout(()=> heart.remove(), 1000);
   }
-
 });
 
 </script>
