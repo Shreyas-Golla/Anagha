@@ -1,4 +1,4 @@
-```html
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -191,6 +191,7 @@ opacity:0;
 
 <script>
 
+
 const music = document.getElementById("bgMusic");
 
 let taps = 0;
@@ -200,9 +201,14 @@ const progress = document.getElementById("progress");
 const loader = document.getElementById("loader");
 const message = document.getElementById("message");
 
-btn.addEventListener("click", () => {
+/* TAP BUTTON */
+
+btn.addEventListener("click", (e) => {
+
+e.stopPropagation(); // 🔥 VERY IMPORTANT
 
 taps++;
+
 progress.style.width = (taps * 25) + "%";
 
 if(taps === 1) message.innerText = "Almost there… ❤️";
@@ -213,8 +219,10 @@ if(taps >= 4){
 
 message.innerText = "Welcome to our story ❤️";
 
-music.play();
+/* SAFE MUSIC PLAY */
+music.play().catch(() => {});
 
+/* HIDE LOADER */
 loader.style.opacity = "0";
 
 setTimeout(()=>{
@@ -224,12 +232,6 @@ loader.style.display = "none";
 }
 
 });
-
-/* save music time */
-
-setInterval(()=>{
-sessionStorage.setItem("musicTime", music.currentTime);
-},1000);
 
 /* slides */
 
@@ -284,7 +286,7 @@ setTimeout(()=>{heart.remove();},8000);
 
 setInterval(createHeart,900);
 
-/* heart burst */
+/* heart burst (ignore button click) */
 
 document.addEventListener("click",(e)=>{
 
@@ -323,4 +325,3 @@ heart.remove();
 
 </body>
 </html>
-```
