@@ -223,6 +223,24 @@ let slides = document.querySelectorAll(".slide");
 let current = 0;
 let startX = 0;
 
+/* TYPEWRITER FUNCTION */
+function typeText(element, text, speed = 50) {
+  let i = 0;
+  element.innerText = "";
+
+  function typing() {
+    if (i < text.length) {
+      element.innerText = text.substring(0, i + 1) + "|";
+      i++;
+      setTimeout(typing, speed);
+    } else {
+      element.innerText = text; // remove cursor at end
+    }
+  }
+
+  typing();
+}
+
 /* TAP BUTTON */
 btn.addEventListener("click", (e) => {
   e.stopPropagation();
@@ -234,15 +252,21 @@ btn.addEventListener("click", (e) => {
   if(taps === 2) message.innerText = "Ready? 😌";
   if(taps === 3) message.innerText = "Can I ask u a question tho??";
 
-  if(taps >= 4){
-    message.innerText = "Nvm… I just love you a lot ❤️";
-
+  if(taps === 4){
     music.play().catch(() => {});
 
-    loader.style.opacity = "0";
+    message.innerText = "";
+
+    // slight pause before typing (emotional effect)
+    setTimeout(() => {
+      typeText(message, "Nvm… I just love you a lot ❤️", 60);
+    }, 400);
+
+    // wait for typing to finish, then fade loader
     setTimeout(()=>{
-      loader.style.display = "none";
-    },600);
+      loader.style.opacity = "0";
+      setTimeout(()=> loader.style.display = "none", 600);
+    }, 2200);
   }
 });
 
@@ -338,8 +362,6 @@ document.addEventListener("click",(e)=>{
     setTimeout(()=> heart.remove(), 1000);
   }
 });
-
 </script>
-
 </body>
 </html>
