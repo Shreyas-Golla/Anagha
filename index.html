@@ -199,16 +199,7 @@ opacity:0;
 
 const music = document.getElementById("bgMusic");
 
-/* LOADER CHECK */
-window.addEventListener("DOMContentLoaded", () => {
-  let alreadyLoaded = sessionStorage.getItem("loadedOnce");
-
-  if(alreadyLoaded){
-    document.getElementById("loader").style.display = "none";
-  }
-});
-
-/* MUSIC LOAD */
+/* LOAD + RESUME MUSIC */
 window.addEventListener("load", () => {
 
   let time = sessionStorage.getItem("musicTime");
@@ -217,8 +208,16 @@ window.addEventListener("load", () => {
     music.currentTime = time;
   }
 
-  music.play().catch(()=>{
-    document.addEventListener("click", () => music.play(), { once:true });
+  music.play().catch(() => {
+
+    const resume = () => {
+      music.play();
+      document.removeEventListener("click", resume);
+      document.removeEventListener("touchstart", resume);
+    };
+
+    document.addEventListener("click", resume);
+    document.addEventListener("touchstart", resume);
   });
 
 });
@@ -262,6 +261,10 @@ function typeText(element, text, speed = 50) {
 /* TAP BUTTON */
 btn.addEventListener("click", (e) => {
   e.stopPropagation();
+
+  if(taps === 0){
+    music.play().catch(()=>{});
+  }
 
   taps++;
   progress.style.width = (taps * 25) + "%";
