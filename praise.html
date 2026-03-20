@@ -167,6 +167,8 @@ Your heart is even more beautiful.
 
 <script>
 
+<script>
+
 /* MUSIC CONTINUE */
 const music = document.getElementById("bgMusic");
 
@@ -177,17 +179,19 @@ window.addEventListener("load", () => {
     music.currentTime = time;
   }
 
-  music.play().catch(()=>{
-    document.addEventListener("click", () => music.play(), { once:true });
-  });
+  // safer play
+  document.addEventListener("click", () => {
+    music.play();
+  }, { once: true });
 
-  typeCurrentSlide(); // start first slide typing
+  typeSlide(0); // start first slide
 });
 
 /* SAVE MUSIC TIME */
 setInterval(()=>{
   sessionStorage.setItem("musicTime", music.currentTime);
 },1000);
+
 
 /* TYPEWRITER */
 function typeText(element, speed = 35){
@@ -207,22 +211,28 @@ function typeText(element, speed = 35){
   typing();
 }
 
+
 /* STORE ORIGINAL TEXT */
 document.querySelectorAll("p, h2").forEach(el=>{
   el.dataset.text = el.innerText;
   el.innerText = "";
 });
 
+
 /* SLIDES */
 let slides = document.querySelectorAll(".slide");
 const container = document.querySelector(".container");
 
-/* TYPE CURRENT SLIDE */
-function typeCurrentSlide(){
-  let index = Math.round(container.scrollLeft / window.innerWidth);
-  let currentSlide = slides[index];
+let currentIndex = -1;
 
-  let elements = currentSlide.querySelectorAll("p, h2");
+
+/* TYPE SPECIFIC SLIDE */
+function typeSlide(index){
+  if(currentIndex === index) return; // prevent repeat
+
+  currentIndex = index;
+
+  let elements = slides[index].querySelectorAll("p, h2");
 
   elements.forEach(el=>{
     if(!el.classList.contains("typed")){
@@ -232,10 +242,13 @@ function typeCurrentSlide(){
   });
 }
 
-/* SCROLL TRIGGER */
+
+/* SCROLL DETECTION (IMPROVED) */
 container.addEventListener("scroll", ()=>{
-  typeCurrentSlide();
+  let index = Math.floor((container.scrollLeft + window.innerWidth/2) / window.innerWidth);
+  typeSlide(index);
 });
+
 
 /* FLOATING HEARTS */
 function createHeart(){
@@ -254,6 +267,7 @@ function createHeart(){
 }
 
 setInterval(createHeart,900);
+
 
 /* HEART BURST */
 document.addEventListener("click",(e)=>{
