@@ -30,8 +30,8 @@ body{
   display:flex;
   flex-direction:column;
   justify-content:center;
-  align-items:center;   /* CENTER */
-  text-align:center;    /* CENTER */
+  align-items:center;
+  text-align:center;
   padding:40px;
   scroll-snap-align:center;
 }
@@ -172,18 +172,38 @@ Your heart is even more beautiful.
 const music = document.getElementById("bgMusic");
 
 window.addEventListener("load", () => {
+
   let time = sessionStorage.getItem("musicTime");
 
   if(time){
     music.currentTime = time;
   }
 
-  // play on first tap
-  document.addEventListener("click", () => {
-    music.play();
-  }, { once: true });
+  music.volume = 0;
 
-  typeSlide(0);
+  music.play().then(()=>{
+    // 🔥 smooth fade-in
+    let vol = 0;
+    let fade = setInterval(()=>{
+      if(vol < 1){
+        vol += 0.05;
+        music.volume = vol;
+      } else {
+        clearInterval(fade);
+      }
+    },100);
+  }).catch(() => {
+
+    const resume = () => {
+      music.play();
+      document.removeEventListener("click", resume);
+      document.removeEventListener("touchstart", resume);
+    };
+
+    document.addEventListener("click", resume);
+    document.addEventListener("touchstart", resume);
+  });
+
 });
 
 /* SAVE MUSIC TIME */
