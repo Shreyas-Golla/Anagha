@@ -13,7 +13,9 @@ font-family:Arial;
 text-align:center;
 padding:50px;
 margin:0;
-overflow:hidden;
+overflow-y:auto;          /* ✅ allow vertical scroll */
+overflow-x:hidden;        /* ✅ prevent sideways scroll */
+-webkit-overflow-scrolling: touch; /* smooth mobile scroll */
 }
 
 .buttons{
