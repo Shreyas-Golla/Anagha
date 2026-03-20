@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
   
@@ -31,7 +31,7 @@ margin:10px;
 font-size:16px;
 }
 
-  /* hearts */
+/* hearts */
 
 .heart{
 position:fixed;
@@ -56,7 +56,7 @@ opacity:0;
 }
 }
 
-  p{
+p{
 font-size:28px;
 line-height:1.7;
 max-width:800px;
@@ -68,11 +68,9 @@ margin:auto;
 
 <body>
 
-  <audio id="bgMusic" autoplay loop>
+<audio id="bgMusic" loop>
 <source src="music1.mpeg" type="audio/mpeg">
 </audio>
-
-
 
 <h1>A Poem For Anagha ❤️</h1>
 
@@ -128,43 +126,65 @@ She feels unreal sometimes…<br>
 but one thing I know for sure,<br>
 she could never be fake.<br><br>
 
- I love you Anagha…❤️
-</p><br><br><br>
-<p>Well I thought of writing a poem but later I realised I can't describe you in words... </p>
+I love you Anagha…❤️
+</p>
+
+<br><br><br>
+
+<p>Well I thought of writing a poem but later I realised I can't describe you in words...</p>
+
 <br><br>
+
 <div class="buttons">
 <a href="index.html">Back</a>
 </div>
-
 
 <script>
 
 const music = document.getElementById("bgMusic");
 
+/* LOAD + RESUME MUSIC */
 window.addEventListener("load", () => {
 
-let time = sessionStorage.getItem("musicTime");
+  let time = sessionStorage.getItem("musicTime");
 
-if(time){
-music.currentTime = time;
-}
+  if(time){
+    music.currentTime = time;
+  }
 
-music.play().catch(()=>{
-document.addEventListener("click", () => music.play(), { once:true });
+  music.volume = 0;
+
+  music.play().then(()=>{
+    // 🔥 smooth fade-in
+    let vol = 0;
+    let fade = setInterval(()=>{
+      if(vol < 1){
+        vol += 0.05;
+        music.volume = vol;
+      } else {
+        clearInterval(fade);
+      }
+    },100);
+  }).catch(() => {
+
+    const resume = () => {
+      music.play();
+      document.removeEventListener("click", resume);
+      document.removeEventListener("touchstart", resume);
+    };
+
+    document.addEventListener("click", resume);
+    document.addEventListener("touchstart", resume);
+  });
+
 });
 
-});
-
-/* save time continuously */
-
+/* SAVE MUSIC TIME */
 setInterval(()=>{
-sessionStorage.setItem("musicTime", music.currentTime);
+  sessionStorage.setItem("musicTime", music.currentTime);
 },1000);
 
-
-
-  /* floating hearts */
-
+/* FLOATING HEARTS */
 function createHeart(){
 
 let heart=document.createElement("div");
@@ -183,15 +203,14 @@ setTimeout(()=>{heart.remove();},8000);
 
 setInterval(createHeart,900);
 
-
-/* heart burst on tap */
-
+/* HEART BURST */
 document.addEventListener("click",(e)=>{
 
 let hearts=["❤️","💖","💗","💝","🩷","🤍"];
 
 for(let i=0;i<8;i++){
 let heart=document.createElement("div");
+
 heart.innerHTML=hearts[Math.floor(Math.random()*hearts.length)];
 
 heart.style.position="fixed";
@@ -208,14 +227,13 @@ heart.style.transform=`translate(${(Math.random()-0.5)*200}px, ${(Math.random()-
 heart.style.opacity="0";
 },10);
 
-setTimeout(()=>{
-heart.remove();
-},1000);
+setTimeout(()=> heart.remove(),1000);
 
 }
 
 });
 
 </script>
+
 </body>
 </html>
