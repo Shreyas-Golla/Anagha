@@ -155,9 +155,7 @@ opacity:0;
 <body>
 
 <div id="loader">
-
 <h1>For Anagha ❤️</h1>
-
 <p id="message">Tap 4 times to start the story</p>
 
 <div id="bar">
@@ -165,7 +163,6 @@ opacity:0;
 </div>
 
 <button id="tapBtn">Tap ❤️</button>
-
 </div>
 
 <audio id="bgMusic" loop>
@@ -197,30 +194,30 @@ opacity:0;
 
 <script>
 
+/* ELEMENTS FIRST (IMPORTANT) */
 const music = document.getElementById("bgMusic");
+const loader = document.getElementById("loader");
+const hint = document.getElementById("scrollHint");
+const btn = document.getElementById("tapBtn");
+const progress = document.getElementById("progress");
+const message = document.getElementById("message");
 
-/* LOAD + RESUME MUSIC */
+/* LOAD */
 window.addEventListener("load", () => {
 
   let alreadyLoaded = sessionStorage.getItem("loadedOnce");
 
   if(alreadyLoaded){
-    // skip loader instantly
-    loader.style.display = "none";
-    hint.style.display = "block";
-    return;
+    loader.style.opacity = "0";
+    setTimeout(()=> loader.style.display = "none", 500);
   }
 
-});
-
   let time = sessionStorage.getItem("musicTime");
-
   if(time){
     music.currentTime = time;
   }
 
   music.play().catch(() => {
-
     const resume = () => {
       music.play();
       document.removeEventListener("click", resume);
@@ -233,23 +230,16 @@ window.addEventListener("load", () => {
 
 });
 
-/* SAVE MUSIC TIME */
+/* SAVE MUSIC */
 setInterval(()=>{
   sessionStorage.setItem("musicTime", music.currentTime);
 },1000);
 
 let taps = 0;
-
-const btn = document.getElementById("tapBtn");
-const progress = document.getElementById("progress");
-const loader = document.getElementById("loader");
-const message = document.getElementById("message");
-const hint = document.getElementById("scrollHint");
-
-let hintHidden = false;
 let slides = document.querySelectorAll(".slide");
 let current = 0;
 let startX = 0;
+let hintHidden = false;
 
 /* TYPEWRITER */
 function typeText(element, text, speed = 50) {
@@ -285,7 +275,6 @@ btn.addEventListener("click", (e) => {
   if(taps === 3) message.innerText = "Can I ask u a question tho??";
 
   if(taps === 4){
-
     sessionStorage.setItem("loadedOnce", "true");
 
     message.innerText = "";
