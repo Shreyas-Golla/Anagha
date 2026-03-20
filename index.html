@@ -202,6 +202,17 @@ const music = document.getElementById("bgMusic");
 /* LOAD + RESUME MUSIC */
 window.addEventListener("load", () => {
 
+  let alreadyLoaded = sessionStorage.getItem("loadedOnce");
+
+  if(alreadyLoaded){
+    // skip loader instantly
+    loader.style.display = "none";
+    hint.style.display = "block";
+    return;
+  }
+
+});
+
   let time = sessionStorage.getItem("musicTime");
 
   if(time){
