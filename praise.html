@@ -20,6 +20,7 @@ body{
   overflow-x:auto;
   scroll-snap-type:x mandatory;
   scroll-behavior:smooth;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* slides */
@@ -29,8 +30,8 @@ body{
   display:flex;
   flex-direction:column;
   justify-content:center;
-  align-items:flex-start; /* LEFT ALIGN */
-  text-align:left;        /* LEFT ALIGN */
+  align-items:center;   /* CENTER */
+  text-align:center;    /* CENTER */
   padding:40px;
   scroll-snap-align:center;
 }
@@ -102,7 +103,7 @@ a{
 
 <body>
 
-<audio id="bgMusic" autoplay loop>
+<audio id="bgMusic" loop>
 <source src="music1.mpeg" type="audio/mpeg">
 </audio>
 
@@ -167,9 +168,7 @@ Your heart is even more beautiful.
 
 <script>
 
-<script>
-
-/* MUSIC CONTINUE */
+/* MUSIC */
 const music = document.getElementById("bgMusic");
 
 window.addEventListener("load", () => {
@@ -179,12 +178,12 @@ window.addEventListener("load", () => {
     music.currentTime = time;
   }
 
-  // safer play
+  // play on first tap
   document.addEventListener("click", () => {
     music.play();
   }, { once: true });
 
-  typeSlide(0); // start first slide
+  typeSlide(0);
 });
 
 /* SAVE MUSIC TIME */
@@ -198,11 +197,11 @@ function typeText(element, speed = 35){
   const text = element.dataset.text;
   let i = 0;
 
-  element.innerText = "";
+  element.textContent = "";
 
   function typing(){
     if(i < text.length){
-      element.innerText += text.charAt(i);
+      element.textContent += text[i];
       i++;
       setTimeout(typing, speed);
     }
@@ -214,8 +213,8 @@ function typeText(element, speed = 35){
 
 /* STORE ORIGINAL TEXT */
 document.querySelectorAll("p, h2").forEach(el=>{
-  el.dataset.text = el.innerText;
-  el.innerText = "";
+  el.dataset.text = el.textContent.trim();
+  el.textContent = "";
 });
 
 
@@ -226,9 +225,9 @@ const container = document.querySelector(".container");
 let currentIndex = -1;
 
 
-/* TYPE SPECIFIC SLIDE */
+/* TYPE SLIDE */
 function typeSlide(index){
-  if(currentIndex === index) return; // prevent repeat
+  if(currentIndex === index) return;
 
   currentIndex = index;
 
@@ -243,7 +242,7 @@ function typeSlide(index){
 }
 
 
-/* SCROLL DETECTION (IMPROVED) */
+/* SCROLL DETECTION */
 container.addEventListener("scroll", ()=>{
   let index = Math.floor((container.scrollLeft + window.innerWidth/2) / window.innerWidth);
   typeSlide(index);
